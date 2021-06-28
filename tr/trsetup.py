@@ -2,6 +2,15 @@ import os
 import json
 from clockifyclient.client import APISession
 from clockifyclient.api import APIServer
+import client_1c_timesheet
+
+def credentials():
+    CREDENTIALS_FILE_1С = os.path.abspath('../res/1c.json')
+    with open(CREDENTIALS_FILE_1С, 'r', encoding='utf-8') as task:
+        setup_dict = json.load(task)
+    return setup_dict
+
+
 CLOCKIFY_SETUP_FILE = os.path.abspath('../res/report_setup.json')
 with open(CLOCKIFY_SETUP_FILE, 'r', encoding='utf-8') as task:
     setup_dict = json.load(task)
@@ -15,4 +24,9 @@ REPORT_SPREADSHEET_ID = setup_dict['report_spreadsheet_id']
 REPORT_SHEET_ID = setup_dict['report_sheet_id']
 DATA_LINE = 4
 PROJECT_COLUMN = 1
-weeks_in_RP = [9, 10, 11, 12, 13, 14]
+weeks_in_RP = [15]
+month_in_RP = 4
+
+api_session_1C = client_1c_timesheet.client.APISession(client_1c_timesheet.api.APIServer(credentials['url']),
+                                            (credentials['user'], credentials['password']))
+
